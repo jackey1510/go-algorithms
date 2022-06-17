@@ -4,6 +4,7 @@ func main() {
 
 }
 
+// https://leetcode.com/problems/linked-list-cycle/
 // ListNode is
 type ListNode struct {
 	Val  int
@@ -11,21 +12,21 @@ type ListNode struct {
 }
 
 func hasCycle(head *ListNode) bool {
-
-	node := head
-	node2 := node.Next
-
-	for node2 != nil && node2.Next != nil {
-		if node.Val == node2.Val {
-			return true
-		}
-		node = node.Next
-		node2 = node2.Next
-		if node2.Next == nil {
-			return true
-		}
-		node2 = node2.Next
+	if head == nil {
+		return false
 	}
 
-	return true
+	return cycle(head, head.Next)
+}
+
+func cycle(node1 *ListNode, node2 *ListNode) bool {
+	if node1 == nil || node2 == nil || node2.Next == nil {
+		return false
+	}
+	if node1 == node2 {
+		return true
+	}
+
+	return cycle(node1.Next, node2.Next.Next)
+
 }
